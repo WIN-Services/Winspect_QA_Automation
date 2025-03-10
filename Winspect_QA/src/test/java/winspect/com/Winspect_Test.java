@@ -80,7 +80,7 @@ public class Winspect_Test extends BaseClass {
 		// driver.findElement(By.xpath("/html[1]/body[1]/div[4]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/input[1]"));
 		// searchBar.sendKeys("2181");
 
-		WebElement orderCard = driver.findElement(By.xpath("//div[text()='2255']"));
+		WebElement orderCard = driver.findElement(By.xpath("//div[text()='2268']"));
 
 		orderCard.click();
 
@@ -112,10 +112,11 @@ public class Winspect_Test extends BaseClass {
 		ac = new Actions(driver);
 		js = (JavascriptExecutor) driver;
 
-		WebElement subCategory = driver.findElement(By.xpath("(//span[text()='Paint/Coating and Caulking'])[1]"));
-		// WebElement exteriorWindows
-		// =driver.findElement(By.id("cc32e2d161878fc673151f9cd491b0d7a80f"));
-		subCategory.click();
+//		WebElement subCategory = driver
+//				.findElement(By.xpath("(//div[@class='flex flex-col gap-[2px]']/child::div)[1]"));
+//		// WebElement exteriorWindows
+//		// =driver.findElement(By.id("cc32e2d161878fc673151f9cd491b0d7a80f"));
+//		js.executeScript("arguments[0].click();", subCategory);
 		Thread.sleep(3000);
 
 		try {
@@ -131,44 +132,58 @@ public class Winspect_Test extends BaseClass {
 			System.out.println("No About values");
 		}
 
-		WebElement addNewRemark = driver.findElement(By.xpath("//div[text()='Add New Remark']"));
-		ac.moveToElement(addNewRemark).perform();
-		Thread.sleep(3000);
+//		WebElement addNewRemark = driver.findElement(By.xpath("//div[text()='Add New Remark']"));
+//		ac.moveToElement(addNewRemark).perform();
+//		Thread.sleep(3000);
 
-		WebElement addACustomRemark = driver.findElement(By.xpath("//button[text()='Add a custom remark']"));
-		addACustomRemark.click();
-		Thread.sleep(3000);
+//		WebElement addACustomRemark = driver.findElement(By.xpath("//button[text()='Add a custom remark']"));
+//		addACustomRemark.click();
+//		Thread.sleep(3000);
+//
+//		WebElement remarkSearchBtn = driver
+//				.findElement(By.xpath("//h3[text()='Remark Title']/following-sibling::button"));
+//		remarkSearchBtn.click();
+//		Thread.sleep(3000);
+//
+//		WebElement replaceRemark = driver.findElement(By.xpath("(//div[text()='Replace'])[1]"));
+//		replaceRemark.click();
+//		Thread.sleep(5000);
+//
+//		WebElement AddtoSummary = driver.findElement(By.xpath("(//button[@id='add-to-summary'])[1]"));
+//		AddtoSummary.click();
+//		Thread.sleep(5000);
 
-		WebElement remarkSearchBtn = driver
-				.findElement(By.xpath("//h3[text()='Remark Title']/following-sibling::button"));
-		remarkSearchBtn.click();
-		Thread.sleep(3000);
+		WebElement checkTheStatusOfSubCategory = driver.findElement(By.xpath("(//img[@alt='In Progress'])[2]"));
 
-		WebElement replaceRemark = driver.findElement(By.xpath("(//div[text()='Replace'])[1]"));
-		replaceRemark.click();
-		Thread.sleep(5000);
-
-		WebElement AddtoSummary = driver.findElement(By.xpath("(//button[@id='add-to-summary'])[1]"));
-		AddtoSummary.click();
-		Thread.sleep(5000);
-
+		String attribute = checkTheStatusOfSubCategory.getAttribute("alt");
+		System.err.println("==========================" + attribute);
 
 		try {
-			WebElement uploadImage = driver.findElement(By.xpath(
-					"(//strong[text()='Upload']/ancestor::div[@class='text-center']/parent::button/parent::div/parent::div)[1]"));
-			
-			js.executeScript("arguments[0].style.display='block';", uploadImage);
+		    // Locate the actual <input type='file'> element
+		    WebElement uploadImage = driver.findElement(By.xpath("(//div[@id='upload-remark-image']/child::input[@type='file'])[1]"));
 
-			js.executeScript("arguments[0].click();", uploadImage);
+		    // Ensure it's visible (if hidden)
+		    js.executeScript("arguments[0].style.display='block';", uploadImage);
+		    Thread.sleep(2000);
 
-			
-			String imgUrl = "/Users/balajikathirwal/Downloads/NEW.jpg";
+		    // Define the image path
+		    String imgUrl = "/Users/balajikathirwal/Downloads/NEW.jpg";
 
-			uploadImage.sendKeys(imgUrl);
+		    // Send the file path directly to the input field
+		    uploadImage.sendKeys(imgUrl);
+		    
+		    Thread.sleep(30000);
+		    
+		    WebElement saveBtnInTheEditor = driver.findElement(By.xpath("//div[text()='Save']"));
+			js.executeScript("arguments[0].click();", saveBtnInTheEditor);
+		    
+		    System.out.println("Image uploaded successfully!");
+
 		} catch (Exception e) {
-			System.out.println("Image not uploaded");
-			System.out.println("This is the issue ====================:"+e);
+		    System.out.println("Image not uploaded");
+		    System.out.println("This is the issue ====================: " + e);
 		}
+
 
 		Thread.sleep(5000);
 //		try {

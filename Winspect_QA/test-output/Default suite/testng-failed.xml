@@ -3,13 +3,15 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="winspect.com.Winspect_Desktop">
+      <class name="winspect.com.Winspect_Test">
         <methods>
-          <include name="searchRemarks1"/>
-          <include name="searchRemarks"/>
+          <include name="orderCard"/>
+          <include name="pastOrder"/>
           <include name="Test_A"/>
+          <include name="searchRemarks"/>
+          <include name="continueInspection"/>
         </methods>
-      </class> <!-- winspect.com.Winspect_Desktop -->
+      </class> <!-- winspect.com.Winspect_Test -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

@@ -2,6 +2,8 @@ package winspect.com;
 
 import java.awt.Robot;
 import java.time.Duration;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+
 import com.baseclass.BaseClass;
 
 public class Winspect_Desktop extends BaseClass {
@@ -77,12 +80,12 @@ public class Winspect_Desktop extends BaseClass {
 		// driver.findElement(By.xpath("/html[1]/body[1]/div[4]/div[2]/div[1]/div[1]/div[1]/div[2]/div[2]/div[1]/input[1]"));
 		// searchBar.sendKeys("2181");
 
-		WebElement orderCard = driver.findElement(By.xpath("//div[text()='2255']"));
+		WebElement orderCard = driver.findElement(By.xpath("//div[text()='2268']"));
 
 		orderCard.click();
 
 	}
-	
+
 	@Test(priority = 7)
 
 	private void agreementPopup() throws InterruptedException {
@@ -116,19 +119,16 @@ public class Winspect_Desktop extends BaseClass {
 		sqFeet.sendKeys("200");
 
 		WebElement temperature = driver.findElement(By.xpath("//input[@name='temperature']"));
-		temperature.sendKeys("-27");
-		
+		temperature.sendKeys("-29");
 
 		Thread.sleep(5000);
 
-		WebElement save = driver.findElement(By.xpath("//button[text()='Save']"));
-		save.click();
+//		WebElement save = driver.findElement(By.xpath("//button[text()='Save']"));
+//		save.click();
 
-		Thread.sleep(5000);
+		Thread.sleep(8000);
 
 	}
-
-	
 
 	@Test(priority = 8)
 	private void continueInspection() throws InterruptedException {
@@ -138,196 +138,147 @@ public class Winspect_Desktop extends BaseClass {
 		Thread.sleep(2000);
 	}
 
-	@Test(priority = 9)
-	private void searchRemarks() throws InterruptedException {
-
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-		ac = new Actions(driver);
-		js = (JavascriptExecutor) driver;
-
-		Thread.sleep(3000);
-
-		try {
-
-			WebElement dropdownvalue = driver
-					.findElement(By.xpath("//div[@data-value='4564f350-ace3-490b-b6c3-12cdd3b97f04']"));
-			dropdownvalue.click();
-
-			WebElement clickOutsidePopup = driver
-					.findElement(By.xpath("(//div[contains(text(),'Full Home Inspection')])[1]"));
-			clickOutsidePopup.click();
-		} catch (Exception e) {
-			System.out.println("No About values");
-		}
-
-		for (int i = 1; i <= 8; i++) {
-
-			WebElement subCategory = driver
-					.findElement(By.xpath("(//div[@class='flex flex-col gap-[2px]']/child::div)[" + i + "]"));
-			js.executeScript("arguments[0].click();", subCategory);
-
-			WebElement addNewRemark = driver.findElement(By.xpath("//div[text()='Add New Remark']"));
-			ac.moveToElement(addNewRemark).perform();
-			Thread.sleep(3000);
-
-			WebElement addACustomRemark = driver.findElement(By.xpath("//button[text()='Add a custom remark']"));
-			js.executeScript("arguments[0].click();", addACustomRemark);
-			Thread.sleep(3000);
-
-			WebElement remarkSearchBtn = driver
-					.findElement(By.xpath("//h3[text()='Remark Title']/following-sibling::button"));
-			remarkSearchBtn.click();
-			Thread.sleep(3000);
-
-			WebElement replaceRemark = driver.findElement(By.xpath("(//div[text()='Replace'])[" + i + "]"));
-			replaceRemark.click();
-			Thread.sleep(3000);
-
-			System.out.println("Added the Remark for  : " + i);
-
-			try {
-
-				WebElement AddtoSummary = driver.findElement(By.xpath("(//button[@id='add-to-summary'])[" + i + "]"));
-				js.executeScript("arguments[0].scrollIntoView(true);", AddtoSummary);
-				Thread.sleep(5000);
-
-				js.executeScript("arguments[0].click();", AddtoSummary);
-
-			} catch (Exception e) {
-				System.out.println("Unable to select the AddToSummary : " + i);
-
-			}
-
-			Thread.sleep(5000);
-
-			try {
-				WebElement statusBox = driver.findElement(
-						By.xpath("(//label[text()='Status*']/following-sibling::button[@role='combobox'])[" + i + "]"));
-				js.executeScript("arguments[0].scrollIntoView(true);", statusBox);
-				Thread.sleep(5000);
-
-				js.executeScript("arguments[0].click();", statusBox);
-				Thread.sleep(5000);
-				WebElement functionalStatus = driver.findElement(By.xpath("//span[text()='Not Inspected']"));
-				js.executeScript("arguments[0].click();", functionalStatus);
-
-			} catch (Exception e) {
-				System.out.println("Unable to select the statuses : " + i);
-
-			}
-
-			// Action Required,Informational,Limitation,Not Inspected,Preventive
-			// Measure,Attention,Repairs Recommended
-			// It should be dynamic
-		}
-
-		WebElement completebtn = driver.findElement(By.xpath("(//button[normalize-space()='Complete'])[1]"));
-
-		if (completebtn.isEnabled()) {
-			completebtn.click();
-		} else if (completebtn.isDisplayed()) {
-			WebElement clickToIncomplete = driver
-					.findElement(By.xpath("(//button[normalize-space()='Completed (Click to Incomplete)'])[1]"));
-			clickToIncomplete.click();
-		}
-
-		System.out.println("Remarks added nd clicked ");
-
-	}
-
 	@Test(priority = 10)
-	private void searchRemarks1() throws InterruptedException {
-
+	private void searchRemarks() throws InterruptedException {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
 		ac = new Actions(driver);
 		js = (JavascriptExecutor) driver;
 
 		try {
-
-			WebElement dropdownvalue = driver
+			WebElement dropdownValue = driver
 					.findElement(By.xpath("//div[@data-value='4564f350-ace3-490b-b6c3-12cdd3b97f04']"));
-			dropdownvalue.click();
+			dropdownValue.click();
 
 			WebElement clickOutsidePopup = driver
 					.findElement(By.xpath("(//div[contains(text(),'Full Home Inspection')])[1]"));
 			clickOutsidePopup.click();
 		} catch (Exception e) {
-			System.out.println("No About values");
+			System.out.println("No About values found");
 		}
 
-		for (int i = 1; i <= 8; i++) {
+		List<WebElement> subCategories = driver
+				.findElements(By.xpath("//div[@class='flex items-center gap-1 cursor-pointer']"));
+		int totalSubCategories = subCategories.size();
+		System.out.println("Total Number of subCategories :" + totalSubCategories);
 
-			WebElement subCategory = driver
-					.findElement(By.xpath("(//div[@class='flex items-center gap-1 cursor-pointer'])[" + i + "]"));
+		for (int subIndex = 1; subIndex <= totalSubCategories; subIndex++) {
+			WebElement subCategory = driver.findElement(
+					By.xpath("(//div[@class='flex items-center gap-1 cursor-pointer'])[" + subIndex + "]"));
 			subCategory.click();
+			System.out.println("Selected subcategory: " + subIndex);
 			Thread.sleep(3000);
 
-			WebElement addNewRemark = driver.findElement(By.xpath("//div[text()='Add New Remark']"));
-			ac.moveToElement(addNewRemark).perform();
-			Thread.sleep(3000);
+			for (int remarkIndex = 1; remarkIndex <= 8; remarkIndex++) {
+				WebElement addNewRemark = driver.findElement(By.xpath("//div[text()='Add New Remark']"));
+				ac.moveToElement(addNewRemark).perform();
+				Thread.sleep(3000);
 
-			WebElement addACustomRemark = driver.findElement(By.xpath("//button[text()='Add a custom remark']"));
-			js.executeScript("arguments[0].click();", addACustomRemark);
-			Thread.sleep(3000);
+				WebElement addACustomRemark = driver.findElement(By.xpath("//button[text()='Add a custom remark']"));
+				js.executeScript("arguments[0].click();", addACustomRemark);
+				Thread.sleep(3000);
 
-			WebElement remarkSearchBtn = driver
-					.findElement(By.xpath("//h3[text()='Remark Title']/following-sibling::button"));
-			remarkSearchBtn.click();
-			Thread.sleep(3000);
+				WebElement remarkSearchBtn = driver
+						.findElement(By.xpath("//h3[text()='Remark Title']/following-sibling::button"));
+				remarkSearchBtn.click();
+				Thread.sleep(3000);
 
-			WebElement replaceRemark = driver.findElement(By.xpath("(//div[text()='Replace'])[" + i + "]"));
-			replaceRemark.click();
-			Thread.sleep(3000);
+				WebElement replaceRemark = driver
+						.findElement(By.xpath("(//div[text()='Replace'])[" + remarkIndex + "]"));
+				replaceRemark.click();
+				Thread.sleep(3000);
 
-			try {
+				System.out.println("Added remark " + remarkIndex + " for subcategory " + subIndex);
 
-				WebElement AddtoSummary = driver.findElement(By.xpath("(//button[@id='add-to-summary'])[" + i + "]"));
-				js.executeScript("arguments[0].scrollIntoView(true);", AddtoSummary);
+				if (subIndex == 1 && remarkIndex == 1) {
+					try {
+						WebElement uploadImage = driver.findElement(
+								By.xpath("(//div[@id='upload-remark-image']/child::input[@type='file'])[1]"));
+						js.executeScript("arguments[0].style.display='block';", uploadImage);
+						Thread.sleep(2000);
+
+						String imgUrl = "/Users/balajikathirwal/Downloads/NEW.jpg";
+						uploadImage.sendKeys(imgUrl);
+						Thread.sleep(30000);
+
+						WebElement saveBtnInTheEditor = driver.findElement(By.xpath("//div[text()='Save']"));
+						js.executeScript("arguments[0].click();", saveBtnInTheEditor);
+						System.out.println("Image uploaded successfully for subcategory 1, remark 1!");
+					} catch (Exception e) {
+						System.out.println("Image not uploaded for subcategory 1, remark 1");
+						System.out.println("This is the issue ====================: " + e);
+					}
+				}
+
+				try {
+					WebElement AddtoSummary = driver
+							.findElement(By.xpath("(//button[@id='add-to-summary'])[" + remarkIndex + "]"));
+					js.executeScript("arguments[0].scrollIntoView(true);", AddtoSummary);
+					Thread.sleep(5000);
+					js.executeScript("arguments[0].click();", AddtoSummary);
+				} catch (Exception e) {
+					System.out.println("Unable to select the AddToSummary for remark: " + remarkIndex);
+				}
+
 				Thread.sleep(5000);
 
-				js.executeScript("arguments[0].click();", AddtoSummary);
+				try {
+					WebElement statusBox = driver.findElement(
+							By.xpath("(//label[text()='Status*']/following-sibling::button[@role='combobox'])["
+									+ remarkIndex + "]"));
+					js.executeScript("arguments[0].scrollIntoView(true);", statusBox);
+					Thread.sleep(5000);
+					js.executeScript("arguments[0].click();", statusBox);
+					Thread.sleep(5000);
 
-			} catch (Exception e) {
-				System.out.println("Unable to select the AddToSummary : " + i);
-
+					WebElement functionalStatus = driver.findElement(By.xpath("//span[text()='Not Inspected']"));
+					js.executeScript("arguments[0].click();", functionalStatus);
+				} catch (Exception e) {
+					System.out.println("Unable to select the status for remark: " + remarkIndex);
+				}
 			}
 
-			Thread.sleep(5000);
-
 			try {
-				WebElement statusBox = driver.findElement(
-						By.xpath("(//label[text()='Status*']/following-sibling::button[@role='combobox'])[" + i + "]"));
-				js.executeScript("arguments[0].scrollIntoView(true);", statusBox);
-				Thread.sleep(5000);
-
-				js.executeScript("arguments[0].click();", statusBox);
-				Thread.sleep(5000);
-				WebElement functionalStatus = driver.findElement(By.xpath("//span[text()='Not Inspected']"));
-				js.executeScript("arguments[0].click();", functionalStatus);
-
+				WebElement completeBtn = driver.findElement(By.xpath("//button[text()='Complete']"));
+				if (completeBtn.isEnabled()) {
+					completeBtn.click();
+				} else if (completeBtn.isDisplayed()) {
+					WebElement clickToIncomplete = driver
+							.findElement(By.xpath("//button[normalize-space()='Completed (Click to Incomplete)']"));
+					clickToIncomplete.click();
+				}
+				System.out.println("Subcategory " + subIndex + " completed.");
 			} catch (Exception e) {
-				System.out.println("Unable to select the statuses : " + i);
-
+				System.out.println("Unable to click Complete button for subCategory: " + subIndex);
 			}
 
-			// Action Required,Informational,Limitation,Not Inspected,Preventive
-			// Measure,Attention,Repairs Recommended
-			// It should be dynamic
+			Thread.sleep(9000);
 		}
 
-		WebElement completebtn = driver.findElement(By.xpath("(//button[normalize-space()='Complete'])[1]"));
+		WebElement checkTheStatusOfSubCategory = driver.findElement(By.xpath("//img[@alt='Completed']"));
+		String attribute = checkTheStatusOfSubCategory.getAttribute("alt");
+		System.out.println("Main Category Status: " + attribute);
 
-		if (completebtn.isEnabled()) {
-			completebtn.click();
-		} else if (completebtn.isDisplayed()) {
-			WebElement clickToIncomplete = driver
-					.findElement(By.xpath("(//button[normalize-space()='Completed (Click to Incomplete)'])[1]"));
-			clickToIncomplete.click();
+		if (attribute.equalsIgnoreCase("Completed")) {
+			WebElement finishAndSubmit = driver.findElement(By.xpath("//button[text()='Finish and Submit']"));
+			finishAndSubmit.click();
+			System.out.println("Main category completed. Clicked Finish and Submit.");
+		} else {
+			System.out.println("Main category still in progress.");
 		}
 
-		System.out.println("Remarks added nd clicked ");
+		Thread.sleep(8000);
+
+		WebElement yesClientreport = driver.findElement(By.xpath("//button[text()='Yes']"));
+		js.executeScript("arguments[0].click();", yesClientreport);
+
+		Thread.sleep(8000);
+
+		WebElement submitToWinConnect = driver.findElement(By.xpath("//button[text()='Submit to WINconnect']"));
+		js.executeScript("arguments[0].click();", submitToWinConnect);
+
+		System.out.println("Completed a report with Happy Flow");
 
 	}
+
 }
